@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>贝贝网-有家有贝贝！1亿人都在用！</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/detail.css" />
+    <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", ()=>{
+            var img = document.querySelector("#main .m1_l");
+            var goods = document.querySelector("#main .m1_r");
+            var goods1 = document.querySelector("#main .m1_r .m1_r1");
+            var goods2 = document.querySelector("#main .m1_r .m1_r2");
+            var goods4 = document.querySelector("#main .m1_r .m1_r4");
+
+            // 用于保存当前商品信息
+            var currentGoods;
+            // 用于保存浏览记录
+            var historyList = [];
+            render();
+            function render(){
+            var cookie = document.cookie.split('; ');
+            cookie.forEach(function(item){
+                var arr = item.split('=');
+                if(arr[0] === 'currentGoods'){
+                    currentGoods = JSON.parse(arr[1]);
+                }else if(arr[0] === 'historyList'){
+                    historyList = JSON.parse(arr[1]);
+                }
+            });
+                var zhe = parseFloat((currentGoods.price1/currentGoods.price)*10).toFixed(1);
+                var sheng = currentGoods.price - currentGoods.price1;
+                // console.log(sheng);
+                img.innerHTML = "<img src='"+currentGoods.imgurl+"'/>"
+                goods1.innerHTML = "<i style='font-size: 20px;color: #754;font-weight: 400;color: #FF5482;'>今日特卖 【第二份半价】</i>"+
+                                  "<span>"+currentGoods.title+"</span>"+
+                                  "<br><span>【在江西发货，水果是平和县拉过去发货的】早在清乾隆年间它就被列为朝廷贡品。柚香可口，多汁柔软，不留残渣。柚香可口，多汁柔软，不留残渣</span>"
+                goods2.innerHTML = "<span>¥</span>"+
+                                  "<span>"+currentGoods.price1+"</span>"+
+                                   "<del><span>"+currentGoods.price+"</span></del>"+
+                                    "<span>折扣:"+zhe+"折</span>"+
+                                    "<span>您节省了"+sheng+"</span>"
+                goods4.innerHTML = "<p>"+currentGoods.price1+"</p>"+
+                                    "<a href='../html/car.html' class='add'>单独购买</a>"
+                }
+            var add = document.querySelector("#main .m1_r .m1_r4 .add");
+            add.onclick = function(){
+                var i;
+                var has = historyList.some(function(item,idx){
+                    i = idx;
+                    return item.id == currentGoods.id;
+                })
+                if(has){
+                     historyList[i].qty++;
+                }else{
+                    historyList.unshift(currentGoods);
+                }
+            var now = new Date();
+            now.setDate(now.getDate()+3);
+            document.cookie = 'historyList=' + JSON.stringify(historyList) + ';expires=' + now;
+            }
+
+
+
+    })
+
+    </script>
+</head>
+<body>  
+    <div id="all">
+        <div id="top">
+        <div class="container">
+            <ul class="fr">
+                <li>您好,请登录</li>
+                <li>
+                    <a href="../html/register.html" style="color:red;">免费注册</a>
+                </li>
+                <li>
+                    <a href="">商家入驻</a>
+                </li>
+                <li>
+                    <a href="">贝贝商家中心</a>
+                </li>
+                <li>
+                    <a href="">帮助中心</a>
+                </li>
+                <li>
+                    <a href="">关注</a>
+                </li>
+            </ul>
+            </div>
+            </div>
+    <div id="t1">
+        <div class="container">
+            <a href="../html/home.html"><img src="../images/beibei.png" height="90" width="243" alt="" /></a>
+            <a href="../html/car.html"><img src="../images/car.png" height="90" width="243" alt="" /></a>
+        </div>
+    </div>
+    
+    <div id="nav">
+        <div class="container">
+            <div class="n_l">
+                <ul>
+                    <li><a href="../html/home.html">首页</a></li>
+                    <li><a href="">全球购</a></li>
+                    <li><a href="">限量购</a></li>
+                    <li><a href="">贝贝app</a></li>
+                    <li><a href="">贝店</a></li>
+                    <li><a href="">贝贷</a></li>
+                    <li><a href="">商家入驻</a></li>
+                </ul>
+            </div>
+            <div class="n_r">
+                <ul>
+                    <li>
+                        <span>在售分类</span>
+                        <img src="../images/jt.png" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="搜索商品或品牌" value maxlength="20" />
+                        <img src="../images/ss.png" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="banner">
+     </div>
+
+    <div id="main">
+    <div class="container">
+        <div class="m_1">
+                <div class="m1_l fl"></div>
+                <div class="m1_r fl">
+                    <div class="m1_r1"></div>
+                    <div class="m1_r2"></div>
+                    <div class="m1_r3">
+                        <img src="../images/book.png" alt="" />
+                    </div>
+                    <div class="m1_r4"></div>
+                </div>
+        </div>
+        <img src="../images/xiang.png"/>
+    </div>
+    </div>
+
+                <div id="bottom">
+                    <div class="container"></div>
+                    <img src="../images/b6.png" alt="" />
+                </div>
+
+                <div id="bottom1">
+                    <div class="container">
+                         <div class="help-quick-link clearfix">
+                <dl class="no-l-border">
+                    <dt><i class="iconfont">&#xf005f;</i> 新手指南</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#member-reg">• 注册登录</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/qiang_gou.html">• 抢购商品</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/cart_operate.html">• 购物车操作</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/single_payment.html">• 下单支付</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf0130;</i> 常见问题</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/faq.html#hotFaq">• 热门常见问题</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/faq.html#refundFaq">• 退货/退款相关</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/frequently_qa_3.html">• 发货相关</a></dd>
+                    <!-- todo -->
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/faq.html#tradingRuleFaq">• 平台交易规则</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf00ec;</i> 账号管理</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#member-reg">• 会员注册</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#password-manage">• 密码管理</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/frequently_qa_1.html">• 投诉举报</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#unhealthy-manage">• 不良信息处理</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf0280;</i> 支付相关</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/online_payment_2.html">• 在线支付</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/online_payment_1.html">• 余额支付</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf0134;</i> 配送相关</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/distribution_1.html">• 配送说明</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/distribution_2.html">• 物流信息</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/distribution_3.html">• 验货签收</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf011b;</i> 消费者保障</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/service_1.html">• 退货政策</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/service_2.html">• 退货流程</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/service_3.html">• 退货方式和时效</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/after_sale.html#tradingSave">• 交易安全保障</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/after_sale.html#marginSystem">• 保证金制度</a></dd>
+                </dl>
+                <dl class="sns no-r-border">
+                    <dd>
+                        <p class="pink">关注社区<br /><span class="c-999">优惠特卖早知道</span></p>
+                        <p><a class="sns-link" target="_blank" href="http://weibo.com/u/3963155532">&nbsp;</a><a class="sns-link" target="_blank" href="http://user.qzone.qq.com/2643291899">&nbsp;</a></p>
+                    </dd>
+                </dl>
+                <img src="../images/b7.png" alt="" />
+            </div>
+
+                    </div>
+                </div>
+                <div id="bottom2">
+                <div class="container">
+                    <div class="footer-nav">
+                    <a rel="nofollow" href="http://www.beibei.com/">首页</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.husor.com/">关于贝贝</a> |
+                    <a rel="nofollow" target="_blank" href="http://seller.beibei.com/">商家入驻</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/guarantee/">正品保证</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.husor.com/hr/">人才招聘</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/kf.html">联系我们</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/index.html">帮助中心</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/link.html">友情链接</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/app/">手机客户端</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/kf.html">客服在线</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/quick/1503/public.html">贝贝公益</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/quick/1603/11-quality.html">品质健康</a> |
+                    <a target="_blank" href="http://www.yuerbao.com/forum/index">育儿社区</a> 
+                    <a class="hidden" href="http://webscan.360.cn/index/checkwebsite/url/www.beibei.com" name="c49c38b3d39d1adc2328cfcce629548a" >360网站安全检测平台</a>
+                </div>
+                    </div>
+                </div>
+
+                <div id="bottom3">
+                    <div class="container">
+                            <div class="footer-content">
+        <div class="wrapper">
+                <p>浙ICP备14025287号 |
+                    食品流通许可证：SP3301041510054925 |
+                    出版物经营许可证：新出发零字第00086号</p>
+                <p class="mt-8">&copy; 2014-2018 <a style="color: #999" href="http://www.husor.com/" target="_blank">杭州贝购科技有限公司 </a>All Rights Reserved. 客服热线：0571-10107788</p>
+                                    <div class="mt-20">
+                <a href="https://ss.knet.cn/verifyseal.dll?sn=e16072233010064201bhd4000000&comefrom=trust&trustKey=dn&trustValue=www.beibei.com" target="_blank" rel="nofollow"><img style="width:90px; height:32px" src="../images/b8.png" border="0" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="https://search.szfw.org/cert/l/CX20140613008216008256" target="_blank" rel="nofollow"><img src="../images/b9.png" /></a>
+                <a href="http://122.224.75.236/wzba/login.do?method=hdurl&doamin=http://www.beibei.com&id=330104000229884&SHID=1223.0AFF_NAME=com.rouger.gs.main.UserInfoAff&AFF_ACTION=qyhzdetail&PAGE_URL=ShowDetail" rel="nofollow" target="_blank"><img src="http://b0.hucdn.com/img/common/hzgs.png" /></a>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+
+            
+        </div>
+</body>
+</html>

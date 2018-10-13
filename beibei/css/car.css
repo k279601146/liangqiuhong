@@ -1,0 +1,141 @@
+#all{height: 2818px;background: ;}
+#top{height: 30px;background: #F4F4F4;}
+#top ul li{
+    float:left;line-height: 30px;}
+#top ul li a{
+    color:#aaa;
+    padding:0px 10px;
+    border-right: 1px solid #ccc;
+}
+
+#t1{height: 90px;}
+#t1 a:nth-of-type(2){
+    float:right;
+}
+
+#nav{height: 38px;background: #FF647C;}
+#nav .n_l ul li{
+    float:left;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 38px;
+    padding: 0px 33px;    
+}
+#nav .n_l ul li a{
+    color: #fff;
+}
+#nav .n_r ul li{
+    float:left;  
+    line-height: 38px;
+}
+#nav .n_r ul li:nth-of-type(2){
+    position:relative;
+}
+#nav .n_r ul li:nth-of-type(2) input{
+    height: 28px;
+}
+#nav .n_r ul li:nth-of-type(2) img{
+    position:absolute;
+    top:7px;left:145px;
+}
+
+#main{
+    margin-top: 22px;
+    margin-bottom: 50px;
+}
+#bottom img{overflow:hidden;width: 100%};
+#bottom1{
+    border-top: 1px solid #ddd;
+    background: #f1f1f1;
+    padding: 10px 0;
+    min-width: 1000px;
+}
+#bottom1 dl{
+    border-left: 1px solid #FDFDFD;
+    border-right: 1px solid #E9E1E8;
+    float: left;
+    height: 120px;
+    margin: 15px 0;
+    padding: 0 0 0 15px;
+    width: 115px;
+    text-align: left;
+}
+#bottom1 dl dd a{
+    display: block;
+    height: 22px;
+    line-height: 22px;
+    overflow: hidden;
+    padding-left: 9px;
+    color: #888;
+}
+#bottom2 .footer-nav{
+    border-top: 3px solid #ff5482;
+    background: #555;
+    padding: 10px 0;
+    color: #ddd;
+}
+#bottom3 .wrapper{
+    text-align: center;
+}
+#bottom3 .wrapper p{
+    padding: 15px 0px;
+}
+
+#banner{height: 30px;background:#999;opacity: 0.6;}
+
+#main .m_1{
+    padding: 25px;
+}
+
+#main .m_1 .m1_l{
+    width: 450px;
+    background:yellow;
+}
+#main .m_1 .m1_r{
+    width: 580px;
+    background:blue;
+}
+#main h1{
+    font-weight: bolder;
+    font-size: 2.5em;
+    margin: 0 0 0 30px;
+    line-height: 70px;
+    color: #a7a7a7;
+    text-shadow: 0 -1px 0 #fff;
+}
+#main .pure-table thead tr th{
+    padding: 6px 50px;
+    
+}
+#main .pure-table thead{
+    background: #f2f4f6;
+}
+#main .car{
+    border: 1px solid #ccc;
+}
+#main .car th{
+    border: 1px dashed #ccc;
+    height: 103px;
+}
+#main .car tr{
+    border: 1px solid pink;
+}
+#main .gg{
+    display:inline-block;
+    height: 35px;background:purple;
+    border-radius: 5px;
+    color: #fff;
+    line-height: 35px;
+    font-size: 20px;
+    text-align: center;
+}
+#main .clear{
+    margin-right: 25px;*/
+}
+#main .ssum{
+    background:#ccc;
+    margin-right: 150px;
+    color:red;
+    font-weight: bold;
+
+}

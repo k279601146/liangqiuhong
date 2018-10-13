@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded",()=>{
+        var mail_r = document.querySelector("#main #mail_r");
+        var password_r1 = document.querySelector("#main #password_r1");
+        var submit = document.querySelector("#main #submit");
+        var t_output = document.querySelector("#main #t_output");
+        mail_r.onblur = function(){
+            var ma_r = mail_r.value;
+            var pa_r1 = mail_r.value;
+            if(ma_r.length<1){
+                t_output.innerHTML = "用户名不能空";
+            }
+            else if(ma_r.length>=1){
+                t_output.innerHTML = "";
+            }
+        
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            var status = [200,304];
+            if(xhr.readyState == 4 && status.indexOf(xhr.status) != -1){
+                var res = xhr.responseText;
+                console.log(res);
+                
+            }
+        }
+        xhr.open("get","../api/03.check.php?mail_r="+ma_r,true);
+        xhr.send(null);
+        }
+    })
+    </script>
+</head>
+<body>
+    <div id="all">
+        <div id="top">
+        <div class="container clearfix">
+            <div class="t_l fl">
+            <a href="../html/home.html"><img src="../images/beibei.png" height="90" width="243" alt="" /></a>
+            </div>
+            <div class="t_r fr">
+            <a href="../html/car.html"><img src="../images/car.png" height="90" width="243" alt="" /></a>
+            </div>
+            </div>
+        </div>
+
+        <div id="main">
+            <div class="container clearfix">
+                <div class="m_l fl">
+                    <img src="../images/yao.png" alt="" />
+                </div>
+                <div class="m_r fr">
+                    <ul class="m_1">
+                        <li font-size: 14px;color: #000;font-weight: 700;>新用户注册</li>
+                        <li>
+                            <i>已有账号</i>
+                            <a href="../html/login.html" style="color:red">直接登录</a>
+                        </li>
+                    </ul>   
+                    <form action="../api/02.zhuce.php" method="post" onsubmit="return check(this)">
+                    <label for="mail_r"></label><br />
+                    <input type="number" id='mail_r' name='mail_r' placeholder="您的手机号" /><span id="t_output"></span>
+                    <br />
+                    <label for="password_r1"></label><input type="password" id="password_r1" maxlength="16" placeholder="密码，6-16位字母、数字或符号" name="password_r1" ><br>
+                    <label for="password_r2"></label><input type="password" id="password_r2" maxlength="16" placeholder="确认密码" name="password_r2" ><br>
+                    <input type="submit" name="submit_r" value="注册" id="submit_r"><br>
+                    <span>
+                    为保障账户安全，建议密码为6-16位字符，可包含数字、字母和特殊字符。
+                    </span>     
+                    <span>
+                        注册即接受 <a href="http://www.beibei.com/support/user/agreement.html" target="_blank">《贝贝使用协议》</a>和<a href="http://www.beibei.com/support/user/community.html" target="_blank">《社区使用协议》</a>
+                    </span>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="bottom2">
+                <div class="container">
+                    <div class="footer-nav">
+                    <a rel="nofollow" href="http://www.beibei.com/">首页</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.husor.com/">关于贝贝</a> |
+                    <a rel="nofollow" target="_blank" href="http://seller.beibei.com/">商家入驻</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/guarantee/">正品保证</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.husor.com/hr/">人才招聘</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/kf.html">联系我们</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/index.html">帮助中心</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/link.html">友情链接</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/app/">手机客户端</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/kf.html">客服在线</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/quick/1503/public.html">贝贝公益</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/quick/1603/11-quality.html">品质健康</a> |
+                    <a target="_blank" href="http://www.yuerbao.com/forum/index">育儿社区</a> 
+                    <a class="hidden" href="http://webscan.360.cn/index/checkwebsite/url/www.beibei.com" name="c49c38b3d39d1adc2328cfcce629548a" >360网站安全检测平台</a>
+                </div>
+                    </div>
+                </div>
+
+                <div id="bottom3">
+                <div class="container">
+                <div class="footer-content">
+                <div class="wrapper">
+                <p>浙ICP备14025287号 |
+                    食品流通许可证：SP3301041510054925 |
+                    出版物经营许可证：新出发零字第00086号</p>
+                <p class="mt-8">&copy; 2014-2018 <a style="color: #999" href="http://www.husor.com/" target="_blank">杭州贝购科技有限公司 </a>All Rights Reserved. 客服热线：0571-10107788</p>
+                                    <div class="mt-20">
+                <a href="https://ss.knet.cn/verifyseal.dll?sn=e16072233010064201bhd4000000&comefrom=trust&trustKey=dn&trustValue=www.beibei.com" target="_blank" rel="nofollow"><img style="width:90px; height:32px" src="../images/b8.png" border="0" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="https://search.szfw.org/cert/l/CX20140613008216008256" target="_blank" rel="nofollow"><img src="../images/b9.png" /></a>
+                <a href="http://122.224.75.236/wzba/login.do?method=hdurl&doamin=http://www.beibei.com&id=330104000229884&SHID=1223.0AFF_NAME=com.rouger.gs.main.UserInfoAff&AFF_ACTION=qyhzdetail&PAGE_URL=ShowDetail" rel="nofollow" target="_blank"><img src="http://b0.hucdn.com/img/common/hzgs.png" /></a>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+
+
+
+
+
+
+
+
+    </div>
+</body>
+</html>

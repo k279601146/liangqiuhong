@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>贝贝网-有家有贝贝！1亿人都在用！</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <style type="text/css">
+    .fixed{position:fixed;left:0;top:0;z-index: 1000;border: 2px solid #e6e6e6;}
+    </style>
+    <script type="text/javascript">
+         window.onload = function(){
+         var top2 = document.getElementById("nav1");
+         window.onscroll = function(){
+         if(window.scrollY >= 20){
+         top2.className = "fixed";}
+         else if(window.scrollY < 20){
+         top2.className = "";
+                }
+            }
+        }
+        document.addEventListener("DOMContentLoaded",()=>{
+        var output = document.querySelector("#output");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            var status = [200,304];
+            if(xhr.readyState == 4 && status.indexOf(xhr.status) != -1){
+                var res = JSON.parse(xhr.responseText);//json字符串==>json对象
+                output.innerHTML = res.map(function(item){
+
+                    var {id,title,price,imgurl,price1} = item;
+                    return `<li data-id="${id}">
+                             <a href="../html/detail.html">
+                             <img src= "${imgurl}" alt="" />
+                             <span>${title}</span>
+                             <p>¥:${price}</p>
+                             <del>¥:${price1}</del> 
+                             </a>
+                    </li>`;
+                }).join("");
+            // cookie
+            output.onclick = function(e){
+            var target = e.target;     
+             if(target.tagName.toLowerCase() === 'img'){
+                var currendGuid = target.parentElement.parentElement.getAttribute('data-id');
+                var currentGoods = res.filter(function(item){
+                return item.id === currendGuid;
+                })[0]
+                var now = new Date();
+                now.setDate(now.getDate()+3);
+                document.cookie = 'currentGoods=' + JSON.stringify(currentGoods) + ';expires=' + now;
+             }
+        }
+            }
+        }
+        xhr.open("get","../data/goods.json",true);
+        xhr.send(null);
+        // -------回到顶部bottom4
+        var gotop = document.querySelector("#bottom4 .gotop");
+        var b4_service = document.querySelector("#bottom4 .b4_service");
+        var b4_2 = document.querySelector("#bottom4 .b4_2");
+        var b4_ma = document.querySelector("#bottom4 .b4_ma");
+        var b4_car = document.querySelector("#bottom4 .b4_car");
+        var b4_1 = document.querySelector("#bottom4 .b4_1");
+        
+        gotop.onclick=function(){
+        var sdelay=0;
+        for(var i=0;i<30;i++){
+         window.scrollBy(0,-100);
+         console.log(666)
+         if(document.body.scrollTop>0) { 
+          sdelay= setTimeout('returnTop()',50);
+         }  
+        }
+         }
+         // 4
+        totop()
+        function totop(){
+        gotop.onmouseover = function(){
+            gotop.style.background = "#ff647c";
+            gotop.innerHTML = "回到顶部";
+        }
+        
+        gotop.onmouseout = function(){
+            gotop.style.background = "#fff";
+            gotop.innerHTML = '<img src="../images/s4.png" alt="" />'
+        }
+        }
+        // 3
+        b4service()
+        function b4service(){
+        b4_service.onmouseover = function(){
+            b4_service.style.background = "#ff647c";
+            b4_service.innerHTML = "客服在线";
+        }
+        
+        b4_service.onmouseout = function(){
+            b4_service.style.background = "#fff";
+            b4_service.innerHTML = '<img src="../images/s3.png" alt="" />'
+        }
+
+        b4_ma.onmouseover = function(){
+            b4_2.style.display = "block";
+            b4_ma.style.background = "#ff647c";
+        }
+        b4_ma.onmouseout = function(){
+            b4_2.style.display = "none";
+            b4_ma.style.background = "#fff";
+        }
+        var historyList = [];
+        render()
+        function render(){
+        var cookie = document.cookie.split('; ');
+        cookie.forEach(function(item){
+        var arr = item.split('=');
+        if(arr[0] === 'historyList'){
+        historyList = JSON.parse(arr[1]);
+        }else{
+            b4_1.innerHTML = '';
+        }
+        b4_1.innerHTML = historyList.map(function(item){
+            var {id,title,price1,imgurl,qty} = item;
+            return `<tr data-guid="${id}">
+            <th><img src= "${imgurl}" alt="" /></th>
+            <th>${title}</th>
+            <th>¥:${price1}*${qty}</th>
+            </tr>`
+         })
+        })
+        }
+        b4_car.onmouseover = function(){
+            b4_1.style.display = "block";
+            b4_car.style.background = "#ff647c";
+        }
+        b4_car.onmouseout = function(){
+            b4_1.style.display = "none";
+            b4_car.style.background = "#fff";
+        }
+        }
+
+        // nav3级导航
+        nav3()
+        function nav3(){
+        var n3_1 = document.querySelector("#nav .n_r .n3_1");
+        var n_nav = document.querySelector("#nav .n_r .n_nav");
+        var nav_big = document.querySelector("#nav .n_r .nav_big");
+        var nav_ul = document.querySelectorAll("#nav .n_r .nav_big .n_nav li ul");
+        var nav_span = document.querySelectorAll("#nav .n_r .nav_big ul li span");
+            n3_1.onmouseover = function(){
+            nav_big.style.display = "block";
+        }
+        nav_big.onmouseover = function(){
+            nav_big.style.display = "block";
+        }
+            nav_big.onmouseout = function(){
+            nav_big.style.display = "none";
+        }
+
+        n_nav.onmouseover = function(e){
+            var currentul;
+            for(var i=0;i<nav_ul.length;i++){
+                nav_ul[i].idx = i;
+                nav_ul[i].style.display = "none";
+                 nav_span[i].idx = i;
+                 nav_span[i].style.borderRight = "1px dashed #ccc";
+        }
+ 
+        var target = e.target;
+        console.log(target.tagName);
+        if(target.tagName.toLowerCase() == "span" ){
+        currentul = target.nextElementSibling;
+        currentul.style.display = "block";
+        target.parentElement.style.borderRight = "none";
+
+        }
+            currentul.onmouseout = function(){
+             currentul.style.display = "block";   
+         }
+        }
+
+        // 侧边tab
+        var tab = document.querySelector("#main .tab");
+        var tabContent = document.querySelectorAll("#main .content li");
+        var tabItem = tab.children;
+        console.log(tabItem)
+        tabContent[0].style.display = "block";
+
+        for(var i=0;i<tabItem.length;i++){
+                tabItem[i].idx = i;
+                tabItem[i].onmouseover = function(){
+                    for(var i=0;i<tabItem.length;i++){
+                        tabContent[i].style.display = "none";
+                        tabItem[this.idx].style.backgroundColor = "#ccc";
+                    }
+                    tabContent[this.idx].style.display = "block";
+                    tabItem[this.idx].style.backgroundColor = "#fff";
+                }
+             }
+        }
+
+
+
+        })
+   
+    </script>
+</head>
+<body>
+<a href=""></a>
+    <div id="all">
+        <div id="top">
+        <div class="container">
+            <ul class="fr">
+                <li>您好,请登录</li>
+                <li>
+                    <a href="../html/register.html" style="color:red;">免费注册</a>
+                </li>
+                <li>
+                    <a href="">商家入驻</a>
+                </li>
+                <li>
+                    <a href="">贝贝商家中心</a>
+                </li>
+                <li>
+                    <a href="">帮助中心</a>
+                </li>
+                <li>
+                    <a href="">关注</a>yyy
+                </li>
+            </ul>
+            </div>
+            </div>
+    <div id="t1">
+        <div class="container">
+            <a href="../html/home.html"><img src="../images/beibei.png" height="90" width="243" alt="" /></a>
+            <a href="../html/car.html"><img src="../images/car.png" height="90" width="243" alt="" /></a>
+        </div>
+    </div>
+    
+    <div id="nav" class = "">
+        <div class="container">
+            <div class="n_l">
+                <ul>
+                    <li><a href="../html/home.html">首页</a></li>
+                    <li><a href="">全球购</a></li>
+                    <li><a href="">限量购</a></li>
+                    <li><a href="">贝贝app</a></li>
+                    <li><a href="">贝店</a></li>
+                    <li><a href="">贝贷</a></li>
+                    <li><a href="">商家入驻</a></li>
+                </ul>
+            </div>
+            <div class="n_r">
+                <ul>
+                    <li class="n3_1">
+                        <span>在售分类</span>
+                        <img src="../images/jt.png" />
+                    </li>
+                    <li>
+                        <input type="text" placeholder="搜索商品或品牌" value maxlength="20" />
+                        <img src="../images/ss.png" />
+                    </li>
+                </ul>
+            <div class="nav_big">   
+            <ul class="n_nav">
+            <li><span>热销分类</span>
+            <ul>
+                <li><img src="../images/q13.jpg" alt="" /><p>热销分类</p></li>
+                <li><img src="../images/q13.jpg" alt="" /><p>热销分类</p></li>
+                <li><img src="../images/q13.jpg" alt="" /><p>热销分类</p></li>
+                <li><img src="../images/q13.jpg" alt="" /><p>热销分类</p></li>
+                <li><img src="../images/q13.jpg" alt="" /><p>热销分类</p></li>
+            </ul></li>
+            <li><span>儿童服饰</span>
+            <ul>
+                <li><img src="../images/q14.jpg" alt="" /><p>儿童服饰</p></li>
+                <li><img src="../images/q14.jpg" alt="" /><p>儿童服饰</p></li>
+                <li><img src="../images/q14.jpg" alt="" /><p>儿童服饰</p></li>
+                <li><img src="../images/q14.jpg" alt="" /><p>儿童服饰</p></li>
+                <li><img src="../images/q14.jpg" alt="" /><p>儿童服饰</p></li>
+            </ul></li>
+            <li><span>婴儿装</span>
+            <ul>
+                <li><img src="../images/q1.jpg" alt="" /><p>婴儿装</p></li>
+                <li><img src="../images/q1.jpg" alt="" /><p>婴儿装</p></li>
+                <li><img src="../images/q1.jpg" alt="" /><p>婴儿装</p></li>
+                <li><img src="../images/q1.jpg" alt="" /><p>婴儿装</p></li>
+                <li><img src="../images/q1.jpg" alt="" /><p>婴儿装</p></li>
+            </ul></li>
+            <li><span>婴童鞋</span>
+            <ul>
+                <li><img src="../images/q2.jpg" alt="" /><p>婴童鞋</p></li>
+                <li><img src="../images/q2.jpg" alt="" /><p>婴童鞋</p></li>
+                <li><img src="../images/q2.jpg" alt="" /><p>婴童鞋</p></li>
+                <li><img src="../images/q2.jpg" alt="" /><p>婴童鞋</p></li>
+                <li><img src="../images/q2.jpg" alt="" /><p>婴童鞋</p></li>
+            </ul></li>
+            <li><span>奶粉辅食</span>
+            <ul>
+                <li><img src="../images/q3.jpg" alt="" /><p>奶粉辅食</p></li>
+                <li><img src="../images/q3.jpg" alt="" /><p>奶粉辅食</p></li>
+                <li><img src="../images/q3.jpg" alt="" /><p>奶粉辅食</p></li>
+                <li><img src="../images/q3.jpg" alt="" /><p>奶粉辅食</p></li>
+                <li><img src="../images/q3.jpg" alt="" /><p>奶粉辅食</p></li>
+            </ul></li>
+            <li><span>纸尿裤</span>
+            <ul>
+                <li><img src="../images/q4.jpg" alt="" /><p>纸尿裤</p></li>
+                <li><img src="../images/q4.jpg" alt="" /><p>纸尿裤</p></li>
+                <li><img src="../images/q4.jpg" alt="" /><p>纸尿裤</p></li>
+                <li><img src="../images/q4.jpg" alt="" /><p>纸尿裤</p></li>
+                <li><img src="../images/q4.jpg" alt="" /><p>纸尿裤</p></li>
+            </ul></li>
+            <li><span>哺育喂养</span>
+            <ul>
+                <li><img src="../images/q5.jpg" alt="" /><p>哺育喂养</p></li>
+                <li><img src="../images/q5.jpg" alt="" /><p>哺育喂养</p></li>
+                <li><img src="../images/q5.jpg" alt="" /><p>哺育喂养</p></li>
+                <li><img src="../images/q5.jpg" alt="" /><p>哺育喂养</p></li>
+                <li><img src="../images/q5.jpg" alt="" /><p>哺育喂养</p></li>
+            </ul></li>
+            <li><span>洗护清</span>
+            <ul>
+                <li><img src="../images/q6.jpg" alt="" /><p>洗护清</p></li>
+                <li><img src="../images/q6.jpg" alt="" /><p>洗护清</p></li>
+                <li><img src="../images/q6.jpg" alt="" /><p>洗护清</p></li>
+                <li><img src="../images/q6.jpg" alt="" /><p>洗护清</p></li>
+                <li><img src="../images/q6.jpg" alt="" /><p>洗护清</p></li>
+            </ul></li>
+            <li><span>睡眠出行洁</span>
+            <ul>
+                <li><img src="../images/q7.jpg" alt="" /><p>睡眠出行洁</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>睡眠出行洁</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>睡眠出行洁</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>睡眠出行洁</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>睡眠出行洁</p></li>
+            </ul></li>
+            <li><span>玩具文体</span>
+            <ul>
+                <li><img src="../images/q8.jpg" alt="" /><p>玩具文体</p></li>
+                <li><img src="../images/q8.jpg" alt="" /><p>玩具文体</p></li>
+                <li><img src="../images/q8.jpg" alt="" /><p>玩具文体</p></li>
+                <li><img src="../images/q8.jpg" alt="" /><p>玩具文体</p></li>
+                <li><img src="../images/q8.jpg" alt="" /><p>玩具文体</p></li>
+            </ul></li>
+            <li><span>孕妈专区</span>
+            <ul>
+                <li><img src="../images/q9.jpg" alt="" /><p>孕妈专区</p></li>
+                <li><img src="../images/q9.jpg" alt="" /><p>孕妈专区</p></li>
+                <li><img src="../images/q9.jpg" alt="" /><p>孕妈专区</p></li>
+                <li><img src="../images/q9.jpg" alt="" /><p>孕妈专区</p></li>
+                <li><img src="../images/q9.jpg" alt="" /><p>孕妈专区</p></li>
+            </ul></li>
+            <li><span>流行服饰</span>
+            <ul>
+                <li><img src="../images/q10.jpg" alt="" /><p>流行服饰</p></li>
+                <li><img src="../images/q10.jpg" alt="" /><p>流行服饰</p></li>
+                <li><img src="../images/q10.jpg" alt="" /><p>流行服饰</p></li>
+                <li><img src="../images/q10.jpg" alt="" /><p>流行服饰</p></li>
+                <li><img src="../images/q10.jpg" alt="" /><p>流行服饰</p></li>
+            </ul></li>
+            <li><span>鞋包配饰</span>
+            <ul>
+                <li><img src="../images/q11.jpg" alt="" /><p>鞋包配饰</p></li>
+                <li><img src="../images/q11.jpg" alt="" /><p>鞋包配饰</p></li>
+                <li><img src="../images/q11.jpg" alt="" /><p>鞋包配饰</p></li>
+                <li><img src="../images/q11.jpg" alt="" /><p>鞋包配饰</p></li>
+                <li><img src="../images/q11.jpg" alt="" /><p>鞋包配饰</p></li>
+            </ul></li>
+            <li><span>居家百货</span>
+            <ul>
+                <li><img src="../images/q12.jpg" alt="" /><p>居家百货</p></li>
+                <li><img src="../images/q12.jpg" alt="" /><p>居家百货</p></li>
+                <li><img src="../images/q12.jpg" alt="" /><p>居家百货</p></li>
+                <li><img src="../images/q12.jpg" alt="" /><p>居家百货</p></li>
+                <li><img src="../images/q12.jpg" alt="" /><p>居家百货</p></li>
+            </ul></li>
+            <li><span>美妆个妆</span>
+            <ul>
+                <li><img src="../images/q7.jpg" alt="" /><p>美妆个妆</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>美妆个妆</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>美妆个妆</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>美妆个妆</p></li>
+                <li><img src="../images/q7.jpg" alt="" /><p>美妆个妆</p></li>
+            </ul></li>
+            </ul>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+                <div id="nav1">
+                    <div class="container">
+                    <div class="n1_l fl">
+                    <ul>
+                        <li><a href="">童装</a></li>
+                        <li><a href="">母婴</a></li>
+                        <li><a href="">居家</a></li>
+                        <li><a href="">美食</a></li>
+                        <li><a href="">女装</a></li>
+                        <li><a href="">鞋包</a></li>
+                        <li><a href="">美妆</a></li>
+                        <li><a href="">奶粉</a></li>
+                        <li><a href="">纸尿裤</a></li>
+                        </ul>
+                    </div>
+                    <div class="n1_r fr">
+                        <img src="../images/n11.png" alt="" />
+                    </div>
+                    </div>
+                </div>
+
+                <div id="banner">
+                    <div class="container">
+                    <ul>
+                        <li><a href=""><img src="../images/b2.png" alt="" /></a></li>
+                        <li><a href=""><img src="../images/b3.png" alt="" /></a></li>
+                        <li><a href=""><img src="../images/b4.png" alt="" /></a></li>
+                        <li><a href=""><img src="../images/b5.png" alt="" /></a></li>
+                    </ul>
+                    </div>
+                </div>
+
+                <div id="main">
+                    <div class="container">
+                        <div class="m_l fl">
+                            <i>今日特卖</i>
+                            <span style="font-size: 20px;color: #666;"> 每天9点准时上新</span>
+                            <ul id="output"></ul>
+                        </div>
+                        <div class="m_r fl">
+                                <img src="../images/mt.png" alt="" />
+                                <span>热卖排行榜</span>
+                                <ul class="m_tab tab">
+                                    <li><a href="#">童装</a></li>
+                                    <li><a href="#">童鞋</a></li>
+                                    <li><a href="#">玩具</a></li>
+                                    <li><a href="#">用品</a></li>
+                                </ul>
+                                <ul class="m_list content">
+                                    <li>
+                                        <img src="../images/c3.png" alt="" />
+                                    </li>
+                                    <li>
+                                        <img src="../images/c4.png" alt="" />
+                                    </li>
+                                    <li>
+                                        <img src="../images/c5.png" alt="" />
+                                    </li>
+                                    <li>
+                                        <img src="../images/c6.png" alt="" />
+                                    </li>
+
+                                </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="bottom">
+                    <div class="container"></div>
+                    <img src="../images/b6.png" alt="" />
+                </div>
+
+                <div id="bottom1">
+                    <div class="container">
+                         <div class="help-quick-link clearfix">
+                <dl class="no-l-border">
+                    <dt><i class="iconfont">&#xf005f;</i> 新手指南</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#member-reg">• 注册登录</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/qiang_gou.html">• 抢购商品</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/cart_operate.html">• 购物车操作</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/single_payment.html">• 下单支付</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf0130;</i> 常见问题</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/faq.html#hotFaq">• 热门常见问题</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/faq.html#refundFaq">• 退货/退款相关</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/frequently_qa_3.html">• 发货相关</a></dd>
+                    <!-- todo -->
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/faq.html#tradingRuleFaq">• 平台交易规则</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf00ec;</i> 账号管理</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#member-reg">• 会员注册</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#password-manage">• 密码管理</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/frequently_qa_1.html">• 投诉举报</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/register_and_account.html#unhealthy-manage">• 不良信息处理</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf0280;</i> 支付相关</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/online_payment_2.html">• 在线支付</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/online_payment_1.html">• 余额支付</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf0134;</i> 配送相关</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/distribution_1.html">• 配送说明</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/distribution_2.html">• 物流信息</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/distribution_3.html">• 验货签收</a></dd>
+                </dl>
+                <dl>
+                    <dt><i class="iconfont">&#xf011b;</i> 消费者保障</dt>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/service_1.html">• 退货政策</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/service_2.html">• 退货流程</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/service_3.html">• 退货方式和时效</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/after_sale.html#tradingSave">• 交易安全保障</a></dd>
+                    <dd><a target="_blank" href="http://www.beibei.com/support/help/after_sale.html#marginSystem">• 保证金制度</a></dd>
+                </dl>
+                <dl class="sns no-r-border">
+                    <dd>
+                        <p class="pink">关注社区<br /><span class="c-999">优惠特卖早知道</span></p>
+                        <p><a class="sns-link" target="_blank" href="http://weibo.com/u/3963155532">&nbsp;</a><a class="sns-link" target="_blank" href="http://user.qzone.qq.com/2643291899">&nbsp;</a></p>
+                    </dd>
+                </dl>
+                <img src="../images/b7.png" alt="" />
+            </div>
+
+                    </div>
+                </div>
+                <div id="bottom2">
+                <div class="container">
+                    <div class="footer-nav">
+                    <a rel="nofollow" href="http://www.beibei.com/">首页</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.husor.com/">关于贝贝</a> |
+                    <a rel="nofollow" target="_blank" href="http://seller.beibei.com/">商家入驻</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/guarantee/">正品保证</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.husor.com/hr/">人才招聘</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/kf.html">联系我们</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/index.html">帮助中心</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/link.html">友情链接</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/app/">手机客户端</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/support/help/kf.html">客服在线</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/quick/1503/public.html">贝贝公益</a> |
+                    <a rel="nofollow" target="_blank" href="http://www.beibei.com/quick/1603/11-quality.html">品质健康</a> |
+                    <a target="_blank" href="http://www.yuerbao.com/forum/index">育儿社区</a> 
+                    <a class="hidden" href="http://webscan.360.cn/index/checkwebsite/url/www.beibei.com" name="c49c38b3d39d1adc2328cfcce629548a" >360网站安全检测平台</a>
+                </div>
+                    </div>
+                </div>
+
+                <div id="bottom3">
+                    <div class="container">
+                            <div class="footer-content">
+        <div class="wrapper">
+                <p>浙ICP备14025287号 |
+                    食品流通许可证：SP3301041510054925 |
+                    出版物经营许可证：新出发零字第00086号</p>
+                <p class="mt-8">&copy; 2014-2018 <a style="color: #999" href="http://www.husor.com/" target="_blank">杭州贝购科技有限公司 </a>All Rights Reserved. 客服热线：0571-10107788</p>
+                                    <div class="mt-20">
+                <a href="https://ss.knet.cn/verifyseal.dll?sn=e16072233010064201bhd4000000&comefrom=trust&trustKey=dn&trustValue=www.beibei.com" target="_blank" rel="nofollow"><img style="width:90px; height:32px" src="../images/b8.png" border="0" /></a>&nbsp;&nbsp;&nbsp;
+                <a href="https://search.szfw.org/cert/l/CX20140613008216008256" target="_blank" rel="nofollow"><img src="../images/b9.png" /></a>
+                <a href="http://122.224.75.236/wzba/login.do?method=hdurl&doamin=http://www.beibei.com&id=330104000229884&SHID=1223.0AFF_NAME=com.rouger.gs.main.UserInfoAff&AFF_ACTION=qyhzdetail&PAGE_URL=ShowDetail" rel="nofollow" target="_blank"><img src="http://b0.hucdn.com/img/common/hzgs.png" /></a>
+            </div>
+            </div>
+            </div>
+            </div>
+            </div>
+                <div id="bottom4">
+                    <div class="container"></div>
+                    <ul>
+                        <li class="b4_car">
+                            <a href="../html/car.html"><img src="../images/s1.png" alt="" /></a>
+                        </li>
+                        <li class="b4_ma">
+                            <img src="../images/s2.png" alt="" />
+                        </li>
+                        <li class="b4_service b4">
+                            <img src="../images/s3.png" alt="" />
+                        </li>
+                        <li class="gotop b4">
+                            <img src="../images/s4.png" alt="" />
+                        </li>
+                    </ul> 
+                    <div class="b4_2">
+                    <p>下载手机APP</p>
+                    <p>随时随地看上新</p>
+                        <img src="../images/s5.png" alt="" />
+                    </div>
+                    <table class="b4_1">
+                    </table>
+                  </div>
+
+            
+        </div>
+        <script type="text/javascript">
+
+        </script>
+</body>
+</html>

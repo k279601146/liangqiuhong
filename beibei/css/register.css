@@ -1,0 +1,53 @@
+#top{padding-top: 45px;}
+#main{height: 500px;padding-top: 80px;}
+#main .m_l{
+    width: 600px;height: 500px;/*background:pink;*/
+}
+#main .m_r{
+    width: 400px;height: 300px;
+/*    background:yellow;*/
+    padding-top: 52px;
+    border:1px solid #e6e6e6;
+    padding:30px 30px;
+    position:relative;
+}
+#main #t_output{
+    position: absolute;
+    top:73px;right: 70px;
+    color:purple;
+}
+#main .m_1 li{
+    float: left;
+}
+#main .m_1 li:nth-of-type(1){
+    padding-left: 40px;
+}
+#main .m_1 li:nth-of-type(2){
+    padding-left: 154px;
+}
+#main input{
+    width: 320px;height: 30px;margin:20px 40px;
+    border: 1px solid #e6e6e6;
+
+}
+#main #sub{width:35px;}
+#main span{    
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;}
+
+#bottom2 .footer-nav{
+    border-top: 3px solid #ff5482;
+    background: #555;
+    padding: 10px 0;
+    color: #ddd;
+}
+#bottom3 .wrapper{
+    text-align: center;
+}
+#bottom3 .wrapper p{
+    padding: 15px 0px;
+}
